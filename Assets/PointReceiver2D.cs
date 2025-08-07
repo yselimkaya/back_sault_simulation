@@ -12,13 +12,12 @@ public class PointReceiver2D : MonoBehaviour
     public int port = 2002;
 
     [Header("Image Resolution (px)")]
-    public int imageWidth = 1920;   // Python tarafındaki frame genişliği
-    public int imageHeight = 1080;  // Python tarafındaki frame yüksekliği
+    public int imageWidth = 1920;   
+    public int imageHeight = 1080;  
 
     [Header("Visual")]
-    public GameObject boxPrefab;    // Kare sprite prefab’ı
-
-    // --- Dahili değişkenler ---
+    public GameObject boxPrefab;    
+  
     private TcpClient client;
     private NetworkStream stream;
     private Thread receiveThread;
@@ -27,20 +26,20 @@ public class PointReceiver2D : MonoBehaviour
     private readonly Dictionary<int, GameObject> boxesById = new Dictionary<int, GameObject>();
     private readonly object queueLock = new object();
 
-    // ========= JSON Modelleri =========
+   
     [Serializable] public class Point { public int id; public int x; public int y; }
     [Serializable] public class FrameData { public List<Point> points; }
 
     void Start()
     {
-        // Bağlantı işini arka threade at
+     
         receiveThread = new Thread(SocketListen) { IsBackground = true };
         receiveThread.Start();
     }
 
     void Update()
     {
-        // Ana thread: Kuyruktaki en güncel frame’i uygula
+        
         FrameData latestFrame = null;
 
         lock (queueLock)
@@ -55,7 +54,7 @@ public class PointReceiver2D : MonoBehaviour
     {
         foreach (var p in frame.points)
         {
-            // Box var mı? Yoksa oluştur
+           
             if (!boxesById.TryGetValue(p.id, out var box))
             {
                 box = Instantiate(boxPrefab, transform);
@@ -63,13 +62,13 @@ public class PointReceiver2D : MonoBehaviour
                 boxesById[p.id] = box;
             }
 
-            // Pixel → ScreenPoint → WorldPoint
-            float screenX = p.x;                         // (0,0) sol-üst varsayılıyor
-            float screenY = imageHeight - p.y;           // Y eksenini tersine çevir
+           
+            float screenX = p.x;                         
+            float screenY = imageHeight - p.y;           
             Vector3 screenPos = new Vector3(screenX, screenY, 0);
 
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-            worldPos.z = 0;                              // 2D düzlemde tut
+            worldPos.z = 0;                             
             box.transform.position = worldPos;
         }
     }
@@ -92,7 +91,7 @@ public class PointReceiver2D : MonoBehaviour
 
                 sb.Append(Encoding.UTF8.GetString(buffer, 0, bytesRead));
 
-                // Satır sonu “\n” ile frame ayır
+                
                 string data = sb.ToString();
                 int newlineIdx;
                 while ((newlineIdx = data.IndexOf('\n')) >= 0)
@@ -103,7 +102,7 @@ public class PointReceiver2D : MonoBehaviour
                     var frame = JsonUtility.FromJson<FrameData>(jsonLine.Trim());
                     lock (queueLock) frameQueue.Enqueue(frame);
                 }
-                sb = new StringBuilder(data); // elde kalan parçayı sakla
+                sb = new StringBuilder(data); 
             }
         }
         catch (Exception e)
