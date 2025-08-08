@@ -57,28 +57,18 @@ If 1 point (typically head) is missing, it is interpolated.
   -Sends coordinates via socket every 1/30 seconds
 
  -- Unity (PointReceiver.cs)
-  -Uses TcpClient to connect and read data
-  -Deserializes JSON to get point list
-  -Instantiates prefabs and LineRenderer connections
+    -Uses TcpClient to connect and read data
+    -Deserializes JSON to get point list
+    -Instantiates prefabs and LineRenderer connections
 
  -- Configuration
-  -Parameter	Default	Description
-  -THRESHOLD	60	Image binarization threshold
-  -FPS	30	Frame rate of simulation
-  -PORT	2002	TCP socket port
-  -TOTAL_POINTS	7	Expected number of body keypoints
+    -Parameter	Default	Description   
+    -THRESHOLD	60	Image binarization threshold
+    -FPS	30	Frame rate of simulation
+    -PORT	2002	TCP socket port
+    -TOTAL_POINTS	7	Expected number of body keypoints
 
- --Folder Structure
 
-project-root/
-├── back_sault/              # Input frames (.jpg)
-├── frame_processor.py       # Python OpenCV + socket script
-├── UnityProject/            # Unity project folder
-│   └── Assets/
-│       └── Scripts/
-│           └── PointReceiver.cs
-
- -- Notes
   -Make sure Python and Unity are running simultaneously.
   -Restart Python server if Unity throws a broken pipe error.
   -This system does not require internet, it runs locally.
@@ -87,10 +77,7 @@ project-root/
 
 
 <img width="828" height="373" alt="image" src="https://github.com/user-attachments/assets/3ff27eb6-dcb8-426d-99d9-8b1d95f29bba" />
-https://github.com/user-attachments/assets/417154a8-9354-4105-9fa1-8cd9840d2585
 
 
 
-Yavuz Selim Kaya
-Back Sault Simulation using OpenCV and Unity
-2025
+Yavuz Selim Kaya 2025
