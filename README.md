@@ -33,51 +33,8 @@ Unity then visualizes these positions frame-by-frame in sync with the original d
    - Receives JSON data via TCP
    - Updates prefab objects and LineRenderers to reflect current frame
    
--- Data Format
+--How to Work?
+   -First, Run the Python Script
+   - Secondly, Start the Unity Project
 
-Each frame sends a JSON message like:
-json
-{
-  "points": [
-    {"id": 0, "x": 102, "y": 250},
-    {"id": 1, "x": 105, "y": 300},
-    ...
-  ]
-}
-
-Total Points: 7
-
-If 1 point (typically head) is missing, it is interpolated.
-
-
--- How It Works
-  -Python (frame_processor.py)
-  -Detects blobs using cv2.findContours()
-  -Calculates centroids with image moments
-  -Sends coordinates via socket every 1/30 seconds
-
- -- Unity (PointReceiver.cs)
-    -Uses TcpClient to connect and read data
-    -Deserializes JSON to get point list
-    -Instantiates prefabs and LineRenderer connections
-
- -- Configuration
-    -Parameter	Default	Description   
-    -THRESHOLD	60	Image binarization threshold
-    -FPS	30	Frame rate of simulation
-    -PORT	2002	TCP socket port
-    -TOTAL_POINTS	7	Expected number of body keypoints
-
-
-  -Make sure Python and Unity are running simultaneously.
-  -Restart Python server if Unity throws a broken pipe error.
-  -This system does not require internet, it runs locally.
-
- -- Preview
-
-
-<img width="828" height="373" alt="image" src="https://github.com/user-attachments/assets/3ff27eb6-dcb8-426d-99d9-8b1d95f29bba" />
-
-
-
-Yavuz Selim Kaya 2025
+-- Preview
