@@ -60,17 +60,17 @@ This project simulates the real-time movement of **7 blob points** extracted fro
 
 ## Preview
  
-- Video without image processing
+### Video without image processing 
   ![output](https://github.com/user-attachments/assets/5c140bdd-b3cb-4a7f-8c31-e73041c89f9a)  
 
-- Video with image processing
+### Video with image processing
    ![output](https://github.com/user-attachments/assets/8fcb6728-def1-4bb6-b7d0-780e8b2d7962)
   
-- Real-time Unity visualization  
+### Real-time Unity visualization  
    ![output](https://github.com/user-attachments/assets/f2d79376-eaae-437c-b077-98704bfac13a)
 
-
-  Author: Yavuz Selim Kaya
+### Note: The program runs more smoothly but the preview gifs is lagging because in GitHub, uploading gifs memory limited to 10MB.
+### Author: Yavuz Selim Kaya
 
 
 
